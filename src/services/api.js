@@ -18,3 +18,12 @@ export const getTrendings = async () => {
   const response = await api.get('/trending/movie/day');
   return response.data;
 };
+
+export const findMovie = async query => {
+  const response = await api.get('/search/movie', {
+    params: { include_adult: false, query, page: 1 },
+  });
+
+  console.log(response);
+  return response.data;
+};

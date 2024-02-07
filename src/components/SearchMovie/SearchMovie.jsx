@@ -1,20 +1,27 @@
 import Container from 'components/Container';
-import Section from 'components/Section';
-import { Heading, ListWrapper } from './Home.styled';
-import { useEffect, useState } from 'react';
-import { getTrendings } from 'services/api';
-import MovieList from 'components/MovieList';
+import { ListWrapper } from 'components/Home/Home.styled';
 import Loader from 'components/Loader';
+import MovieList from 'components/MovieList';
+import Section from 'components/Section';
+import { useEffect, useState } from 'react';
+import { findMovie } from 'services/api';
 
-const Home = () => {
+// const useGetMoviesList = callback => {
+
+//   return {};
+// };
+
+const SearchMovie = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     setIsLoading(true);
     setError(null);
-    getTrendings()
+
+    findMovie(search)
       .then(({ results }) => {
         console.log(results);
         setMovies(results);
@@ -25,13 +32,22 @@ const Home = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [search]);
 
-  console.log(movies);
+  const onSubmit = e => {
+    e.preventDefault();
+    setSearch(e.target.elements.searchMovie.value);
+  };
+
   return (
     <Section>
       <Container>
-        <Heading>Trending today</Heading>
+        <div>
+          <form autoComplete="off" onSubmit={onSubmit}>
+            <input type="text" name="searchMovie" />
+            <button type="submit">Search</button>
+          </form>
+        </div>
 
         {isLoading && <Loader />}
 
@@ -47,6 +63,4 @@ const Home = () => {
   );
 };
 
-export default Home;
-
-// refactor -> home and search pages
+export default SearchMovie;

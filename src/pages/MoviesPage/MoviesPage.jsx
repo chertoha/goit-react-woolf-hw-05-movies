@@ -1,5 +1,7 @@
+import SearchMovie from 'components/SearchMovie';
+
 const MoviesPage = () => {
-  return <div>MoviesPage</div>;
+  return <SearchMovie />;
 };
 
 export default MoviesPage;
