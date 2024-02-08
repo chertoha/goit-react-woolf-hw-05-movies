@@ -5,12 +5,27 @@ import { useEffect, useState } from 'react';
 import { getTrendings } from 'services/api';
 import MovieList from 'components/MovieList';
 import Loader from 'components/Loader';
-import { useGetMoviesList } from 'hooks/useGetMoviesList';
 
 const Home = () => {
-  const { movies, error, isLoading } = useGetMoviesList({
-    shouldSearch: false,
-  });
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+    getTrendings()
+      .then(({ results }) => {
+        console.log(results);
+        setMovies(results);
+      })
+      .catch(err => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   console.log(movies);
   return (
@@ -33,3 +48,5 @@ const Home = () => {
 };
 
 export default Home;
+
+// refactor -> home and search pages
