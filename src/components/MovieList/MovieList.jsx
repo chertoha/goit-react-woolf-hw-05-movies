@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 
-import { Item, List, MovieLink } from './MovieList.styled';
+import { Item, List } from './MovieList.styled';
+import MovieItemLink from './MovieItemLink';
 
 const MovieList = ({ list }) => {
   return (
     <List>
       {list.map(({ id, title }) => (
         <Item key={id}>
-          <MovieLink to={`/movies/${id}`}>{title}</MovieLink>
+          <MovieItemLink href={`/movies/${id}`} title={title} />
         </Item>
       ))}
     </List>

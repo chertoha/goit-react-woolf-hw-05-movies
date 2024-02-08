@@ -3,36 +3,14 @@ import { ListWrapper } from 'components/Home/Home.styled';
 import Loader from 'components/Loader';
 import MovieList from 'components/MovieList';
 import Section from 'components/Section';
+import { useGetMoviesList } from 'hooks/useGetMoviesList';
 import { useEffect, useState } from 'react';
-import { findMovie } from 'services/api';
-
-// const useGetMoviesList = callback => {
-
-//   return {};
-// };
+import { findMovie, getTrendings } from 'services/api';
 
 const SearchMovie = () => {
-  const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [search, setSearch] = useState('');
-
-  useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-
-    findMovie(search)
-      .then(({ results }) => {
-        console.log(results);
-        setMovies(results);
-      })
-      .catch(err => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [search]);
+  const { movies, setSearch, error, isLoading } = useGetMoviesList({
+    shouldSearch: true,
+  });
 
   const onSubmit = e => {
     e.preventDefault();
