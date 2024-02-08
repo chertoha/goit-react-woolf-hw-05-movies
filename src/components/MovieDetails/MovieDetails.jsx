@@ -1,8 +1,32 @@
 import Container from 'components/Container';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { getMovieById } from 'services/api';
 
 const MovieDetails = () => {
   const location = useLocation();
+
+  const [movie, setMovie] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const { movieId } = useParams();
+
+  useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+
+    getMovieById(movieId)
+      .then(data => {
+        setMovie(data);
+      })
+      .catch(err => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [movieId]);
 
   const backUrl = location?.state?.from ?? '/';
 

@@ -23,7 +23,20 @@ export const findMovie = async query => {
   const response = await api.get('/search/movie', {
     params: { include_adult: false, query, page: 1 },
   });
+  return response.data;
+};
 
-  console.log(response);
+export const getMovieById = async movieId => {
+  const response = await api.get(`/movie/${movieId}`);
+  return response.data;
+};
+
+export const getCast = async movieId => {
+  const response = await api.get(`/movie/${movieId}/credits`);
+  return response.data;
+};
+
+export const getReviews = async movieId => {
+  const response = await api.get(`/movie/${movieId}/reviews`);
   return response.data;
 };
