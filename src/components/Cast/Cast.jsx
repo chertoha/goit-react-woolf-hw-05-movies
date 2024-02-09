@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCast } from 'services/api';
 import { createImageUrl } from 'utils/createImageUrl';
+import { Character, Image, Item, List, Name, Wrapper } from './Cast.styled';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
@@ -31,21 +32,28 @@ const Cast = () => {
 
   return (
     <LoadingWrapper isLoading={isLoading} error={error}>
-      <div>
+      <Wrapper>
         {cast.length > 0 ? (
-          <ul>
+          <List>
             {cast.map(({ id, character, name, profile_path }) => (
-              <li key={id}>
-                <img src={createImageUrl(profile_path)} alt={name} />
-                <p>{name}</p>
-                <p>Character: {character}</p>
-              </li>
+              <Item key={id}>
+                <Image
+                  src={
+                    !profile_path
+                      ? `${process.env.PUBLIC_URL}/no-image.png`
+                      : createImageUrl(profile_path)
+                  }
+                  alt={name}
+                />
+                <Name>{name}</Name>
+                <Character>Character: {character}</Character>
+              </Item>
             ))}
-          </ul>
+          </List>
         ) : (
           <ErrorComponent message="There are no cast here" />
         )}
-      </div>
+      </Wrapper>
     </LoadingWrapper>
   );
 };
