@@ -42,6 +42,8 @@ const SearchMovie = () => {
     setSearchParams(value === '' ? {} : { query: value });
   };
 
+  if (!movies) return;
+
   return (
     <Section>
       <Container>

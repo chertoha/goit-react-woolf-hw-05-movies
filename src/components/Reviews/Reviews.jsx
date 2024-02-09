@@ -1,3 +1,5 @@
+import ErrorComponent from 'components/ErrorComponent';
+import LoadingWrapper from 'components/LoadingWrapper';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from 'services/api';
@@ -25,23 +27,23 @@ const Reviews = () => {
       });
   }, [movieId]);
 
-  console.log(reviews);
-
   return (
-    <div>
-      {reviews.length > 0 ? (
-        <ul>
-          {reviews.map(({ id, author, content }) => (
-            <li key={id}>
-              <h3>Author: {author}</h3>
-              <p>{content}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div>Here are no reviews yet</div>
-      )}
-    </div>
+    <LoadingWrapper error={error} isLoading={isLoading}>
+      <div>
+        {reviews.length > 0 ? (
+          <ul>
+            {reviews.map(({ id, author, content }) => (
+              <li key={id}>
+                <h3>Author: {author}</h3>
+                <p>{content}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ErrorComponent message="Here are no reviews yet" />
+        )}
+      </div>
+    </LoadingWrapper>
   );
 };
 

@@ -1,32 +1,39 @@
 import PropTypes from 'prop-types';
 import { createImageUrl } from 'utils/createImageUrl';
+import {
+  Genres,
+  Heading1,
+  Heading2,
+  Meta,
+  Overview,
+  StyledImage,
+  Wrapper,
+} from './MovieCard.styled';
 
 const MovieCard = ({ title, poster_path, overview, genres }) => {
   return (
-    <div>
-      <img src={createImageUrl(poster_path)} alt={title} />
+    <Wrapper>
+      <StyledImage src={createImageUrl(poster_path)} alt={title} />
 
-      <div>
-        <h1>{title}</h1>
+      <Meta>
+        <Heading1>{title}</Heading1>
 
         {/* <p>User score: {userScore.toFixed(0)}%</p> */}
 
-        <div>
-          <h2>Overview</h2>
-          <p>{overview}</p>
-        </div>
+        <Heading2>Overview</Heading2>
+        <Overview>{overview}</Overview>
 
         {genres && (
           <>
-            <h2>Genres</h2>
-            <p>
+            <Heading2>Genres</Heading2>
+            <Genres>
               {genres[0]?.name &&
                 genres.map(({ name }) => <span key={name}>{name}&nbsp;</span>)}
-            </p>
+            </Genres>
           </>
         )}
-      </div>
-    </div>
+      </Meta>
+    </Wrapper>
   );
 };
 
