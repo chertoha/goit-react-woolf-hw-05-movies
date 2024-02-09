@@ -27,7 +27,7 @@ const Home = () => {
       });
   }, []);
 
-  console.log(movies);
+  // console.log(movies);
   return (
     <Section>
       <Container>

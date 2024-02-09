@@ -1,6 +1,9 @@
+import Container from 'components/Container';
+import Section from 'components/Section';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCast } from 'services/api';
+import { createImageUrl } from 'utils/createImageUrl';
 
 const Cast = () => {
   const [cast, setCast] = useState(null);
@@ -14,9 +17,9 @@ const Cast = () => {
     setError(null);
 
     getCast(movieId)
-      .then(data => {
-        console.log(data);
-        setCast(data);
+      .then(({ cast }) => {
+        console.log(cast);
+        setCast(cast);
       })
       .catch(err => {
         setError(err.message);
@@ -26,7 +29,23 @@ const Cast = () => {
       });
   }, [movieId]);
 
-  return <div>Cast</div>;
+  if (!cast) return;
+
+  return (
+    <div>
+      {cast.length > 0 && (
+        <ul>
+          {cast.map(({ character, name, profile_path }) => (
+            <li key={profile_path}>
+              <img src={createImageUrl(profile_path)} alt={name} />
+              <p>{name}</p>
+              <p>Character: {character}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 };
 
 export default Cast;

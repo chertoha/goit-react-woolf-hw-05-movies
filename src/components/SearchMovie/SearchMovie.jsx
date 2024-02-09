@@ -4,19 +4,23 @@ import Loader from 'components/Loader';
 import MovieList from 'components/MovieList';
 import Section from 'components/Section';
 import { useEffect, useState } from 'react';
-import { findMovie, getTrendings } from 'services/api';
+import { useSearchParams } from 'react-router-dom';
+import { findMovie } from 'services/api';
 
 const SearchMovie = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [search, setSearch] = useState('');
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get('query');
 
   useEffect(() => {
     setIsLoading(true);
     setError(null);
 
-    findMovie(search)
+    findMovie(query)
       .then(({ results }) => {
         console.log(results);
         setMovies(results);
@@ -27,11 +31,12 @@ const SearchMovie = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [search]);
+  }, [query]);
 
   const onSubmit = e => {
     e.preventDefault();
-    setSearch(e.target.elements.searchMovie.value);
+    const { value } = e.target.elements.searchMovie;
+    setSearchParams(value === '' ? {} : { query: value });
   };
 
   return (
