@@ -1,15 +1,14 @@
 import Container from 'components/Container';
-import { ListWrapper } from 'components/Home/Home.styled';
-import Loader from 'components/Loader';
 import MovieList from 'components/MovieList';
 import Section from 'components/Section';
+import LoadingWrapper from 'components/LoadingWrapper';
+import ErrorComponent from 'components/ErrorComponent';
+import { ListWrapper } from 'components/Home/Home.styled';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { findMovie } from 'services/api';
 import { SearchField, SearchForm, SubmitButton } from './SearchMovie.styled';
 import { IoIosSearch } from 'react-icons/io';
-import LoadingWrapper from 'components/LoadingWrapper';
-import ErrorComponent from 'components/ErrorComponent';
 
 const SearchMovie = () => {
   const [movies, setMovies] = useState(null);
