@@ -3,6 +3,7 @@ import LoadingWrapper from 'components/LoadingWrapper';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from 'services/api';
+import { Author, Item, List, Review, Wrapper } from './Reviews.styled';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -29,20 +30,20 @@ const Reviews = () => {
 
   return (
     <LoadingWrapper error={error} isLoading={isLoading}>
-      <div>
+      <Wrapper>
         {reviews.length > 0 ? (
-          <ul>
+          <List>
             {reviews.map(({ id, author, content }) => (
-              <li key={id}>
-                <h3>Author: {author}</h3>
-                <p>{content}</p>
-              </li>
+              <Item key={id}>
+                <Author>Author: {author}</Author>
+                <Review>{content}</Review>
+              </Item>
             ))}
-          </ul>
+          </List>
         ) : (
           <ErrorComponent message="Here are no reviews yet" />
         )}
-      </div>
+      </Wrapper>
     </LoadingWrapper>
   );
 };

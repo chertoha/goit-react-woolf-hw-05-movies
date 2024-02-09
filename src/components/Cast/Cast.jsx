@@ -35,8 +35,8 @@ const Cast = () => {
       <Wrapper>
         {cast.length > 0 ? (
           <List>
-            {cast.map(({ id, character, name, profile_path }) => (
-              <Item key={id}>
+            {cast.map(({ cast_id, character, name, profile_path }) => (
+              <Item key={cast_id}>
                 <Image
                   src={
                     !profile_path

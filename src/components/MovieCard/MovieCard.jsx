@@ -13,17 +13,22 @@ import {
 const MovieCard = ({ title, poster_path, overview, genres }) => {
   return (
     <Wrapper>
-      <StyledImage src={createImageUrl(poster_path)} alt={title} />
+      <StyledImage
+        src={
+          !poster_path
+            ? `${process.env.PUBLIC_URL}/no-image.png`
+            : createImageUrl(poster_path)
+        }
+        alt={title}
+      />
 
       <Meta>
         <Heading1>{title}</Heading1>
 
-        {/* <p>User score: {userScore.toFixed(0)}%</p> */}
-
         <Heading2>Overview</Heading2>
         <Overview>{overview}</Overview>
 
-        {genres && (
+        {genres && genres.length > 0 && (
           <>
             <Heading2>Genres</Heading2>
             <Genres>
