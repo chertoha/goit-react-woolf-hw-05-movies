@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { createImageUrl } from 'utils/createImageUrl';
 
-const MovieCard = ({ title, imgSrc, userScore, overview, genres }) => {
+const MovieCard = ({ title, poster_path, overview, genres }) => {
   return (
     <div>
-      <img src={createImageUrl(imgSrc)} alt={title} />
+      <img src={createImageUrl(poster_path)} alt={title} />
 
       <div>
         <h1>{title}</h1>
@@ -16,11 +16,15 @@ const MovieCard = ({ title, imgSrc, userScore, overview, genres }) => {
           <p>{overview}</p>
         </div>
 
-        <h2>Genres</h2>
-        <p>
-          {genres.name &&
-            genres.map(({ name }) => <span key={name}>{name}&nbsp;</span>)}
-        </p>
+        {genres && (
+          <>
+            <h2>Genres</h2>
+            <p>
+              {genres[0]?.name &&
+                genres.map(({ name }) => <span key={name}>{name}&nbsp;</span>)}
+            </p>
+          </>
+        )}
       </div>
     </div>
   );
@@ -29,13 +33,12 @@ const MovieCard = ({ title, imgSrc, userScore, overview, genres }) => {
 export default MovieCard;
 
 MovieCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  imgSrc: PropTypes.string.isRequired,
-  userScore: PropTypes.number.isRequired,
-  overview: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  poster_path: PropTypes.string,
+  overview: PropTypes.string,
   genres: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
     })
-  ).isRequired,
+  ),
 };

@@ -1,4 +1,5 @@
 import Container from 'components/Container';
+import LoadingWrapper from 'components/LoadingWrapper';
 import MovieCard from 'components/MovieCard';
 import Section from 'components/Section';
 import { useEffect, useState } from 'react';
@@ -34,38 +35,28 @@ const MovieDetails = () => {
 
   console.log(movie);
 
-  if (!movie) return;
-
-  const { title, overview, popularity, poster_path, genres } = movie;
-
   return (
     <Container>
       <Link to={backUrl}>Back</Link>
 
-      {/* <div>Movie Data</div> */}
+      <LoadingWrapper isLoading={isLoading} error={error}>
+        <Section>
+          <Container>
+            <MovieCard {...movie} />
+          </Container>
+        </Section>
 
-      <Section>
-        <Container>
-          <MovieCard
-            title={title}
-            overview={overview}
-            userScore={popularity}
-            imgSrc={poster_path}
-            genres={genres}
-          />
-        </Container>
-      </Section>
+        <div>
+          <h2>Additional information:</h2>
 
-      <div>
-        <h2>Additional information:</h2>
-
-        <ul>
-          <li>
-            <Link to="cast">Cast</Link>
-            <Link to="reviews">Reviews</Link>
-          </li>
-        </ul>
-      </div>
+          <ul>
+            <li>
+              <Link to="cast">Cast</Link>
+              <Link to="reviews">Reviews</Link>
+            </li>
+          </ul>
+        </div>
+      </LoadingWrapper>
 
       <Section>
         <Container>

@@ -6,9 +6,13 @@ import Section from 'components/Section';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { findMovie } from 'services/api';
+import { SearchField, SearchForm, SubmitButton } from './SearchMovie.styled';
+import { IoIosSearch } from 'react-icons/io';
+import LoadingWrapper from 'components/LoadingWrapper';
+import ErrorComponent from 'components/ErrorComponent';
 
 const SearchMovie = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,7 +26,6 @@ const SearchMovie = () => {
 
     findMovie(query)
       .then(({ results }) => {
-        console.log(results);
         setMovies(results);
       })
       .catch(err => {
@@ -42,22 +45,24 @@ const SearchMovie = () => {
   return (
     <Section>
       <Container>
-        <div>
-          <form autoComplete="off" onSubmit={onSubmit}>
-            <input type="text" name="searchMovie" />
-            <button type="submit">Search</button>
-          </form>
-        </div>
+        <SearchForm autoComplete="off" onSubmit={onSubmit}>
+          <SearchField type="text" name="searchMovie" />
+          <SubmitButton type="submit">
+            <IoIosSearch size={16} />
+          </SubmitButton>
+        </SearchForm>
 
-        {isLoading && <Loader />}
-
-        <ListWrapper>
-          {!error & (movies.length >= 0) ? (
-            <MovieList list={movies} />
-          ) : (
-            <div>Error. Something went wrong</div>
-          )}
-        </ListWrapper>
+        {query && (
+          <LoadingWrapper isLoading={isLoading} error={error}>
+            <ListWrapper>
+              {movies.length > 0 ? (
+                <MovieList list={movies} />
+              ) : (
+                <ErrorComponent message="Found none" />
+              )}
+            </ListWrapper>
+          </LoadingWrapper>
+        )}
       </Container>
     </Section>
   );

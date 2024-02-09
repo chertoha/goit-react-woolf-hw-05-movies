@@ -35,8 +35,8 @@ const Cast = () => {
     <div>
       {cast.length > 0 && (
         <ul>
-          {cast.map(({ character, name, profile_path }) => (
-            <li key={profile_path}>
+          {cast.map(({ id, character, name, profile_path }) => (
+            <li key={id}>
               <img src={createImageUrl(profile_path)} alt={name} />
               <p>{name}</p>
               <p>Character: {character}</p>
