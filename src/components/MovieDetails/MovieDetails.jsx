@@ -5,7 +5,7 @@ import LoadingWrapper from 'components/LoadingWrapper';
 import MovieCard from 'components/MovieCard';
 import Section from 'components/Section';
 import { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { getMovieById } from 'services/api';
 
 const MovieDetails = () => {
@@ -14,6 +14,7 @@ const MovieDetails = () => {
   const [error, setError] = useState(null);
 
   const { movieId } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,10 +32,12 @@ const MovieDetails = () => {
       });
   }, [movieId]);
 
+  const backUrl = location.state?.from ?? '/';
+
   return (
     <div>
       <Container>
-        <BackLink />
+        <BackLink url={backUrl} />
       </Container>
 
       <LoadingWrapper isLoading={isLoading} error={error}>
@@ -46,7 +49,7 @@ const MovieDetails = () => {
 
         <div>
           <Container>
-            <AdditionalInfo />
+            <AdditionalInfo location={location.state?.from} />
           </Container>
         </div>
       </LoadingWrapper>

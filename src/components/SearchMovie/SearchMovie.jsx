@@ -59,7 +59,7 @@ const SearchMovie = () => {
               {movies.length > 0 ? (
                 <MovieList list={movies} />
               ) : (
-                <ErrorComponent message="Found none" />
+                <ErrorComponent message="Found nothing" />
               )}
             </ListWrapper>
           </LoadingWrapper>
