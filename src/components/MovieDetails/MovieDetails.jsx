@@ -5,7 +5,7 @@ import LoadingWrapper from 'components/LoadingWrapper';
 import MovieCard from 'components/MovieCard';
 import Section from 'components/Section';
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { getMovieById } from 'services/api';
 
 const MovieDetails = () => {
