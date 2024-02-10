@@ -1,10 +1,10 @@
 import Container from 'components/Container';
 import Section from 'components/Section';
+import MovieList from 'components/MovieList';
+import LoadingWrapper from 'components/LoadingWrapper';
 import { Heading, ListWrapper } from './Home.styled';
 import { useEffect, useState } from 'react';
 import { getTrendings } from 'services/api';
-import MovieList from 'components/MovieList';
-import LoadingWrapper from 'components/LoadingWrapper';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);

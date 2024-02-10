@@ -31,8 +31,6 @@ const MovieDetails = () => {
       });
   }, [movieId]);
 
-  console.log(movie);
-
   return (
     <div>
       <Container>
@@ -63,5 +61,3 @@ const MovieDetails = () => {
 };
 
 export default MovieDetails;
-
-// if id not found -> error!!!   /movies/1

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-
-import { Item, List } from './MovieList.styled';
 import MovieItemLink from './MovieItemLink';
+import { Item, List } from './MovieList.styled';
 
 const MovieList = ({ list }) => {
   return (

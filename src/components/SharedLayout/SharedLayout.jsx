@@ -1,4 +1,5 @@
 import Header from 'components/Header';
+import { Suspense } from 'react';
 
 const { Outlet } = require('react-router-dom');
 
@@ -7,7 +8,9 @@ const SharedLayout = () => {
     <div>
       <Header />
 
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

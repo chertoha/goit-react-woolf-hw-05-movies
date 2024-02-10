@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
 import { Message, Wrapper } from './ErrorComponent.styled';
+import Container from 'components/Container';
 
 const ErrorComponent = ({ message }) => {
   return (
-    <Wrapper>
-      <Message>{message}</Message>
-    </Wrapper>
+    <Container>
+      <Wrapper>
+        <Message>{message}</Message>
+      </Wrapper>
+    </Container>
   );
 };
 

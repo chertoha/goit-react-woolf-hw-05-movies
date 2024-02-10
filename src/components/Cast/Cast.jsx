@@ -19,7 +19,6 @@ const Cast = () => {
 
     getCast(movieId)
       .then(({ cast }) => {
-        console.log(cast);
         setCast(cast);
       })
       .catch(err => {
