@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-export const SearchForm = styled('form')`
+export const Form = styled('form')`
   display: flex;
-  /* width: 300px; */
 `;
 
 export const SearchField = styled('input')`

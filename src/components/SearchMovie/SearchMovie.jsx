@@ -7,8 +7,7 @@ import { ListWrapper } from 'components/Home/Home.styled';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { findMovie } from 'services/api';
-import { SearchField, SearchForm, SubmitButton } from './SearchMovie.styled';
-import { IoIosSearch } from 'react-icons/io';
+import SearchForm from 'components/SearchForm';
 
 const SearchMovie = () => {
   const [movies, setMovies] = useState(null);
@@ -35,9 +34,7 @@ const SearchMovie = () => {
       });
   }, [query]);
 
-  const onSubmit = e => {
-    e.preventDefault();
-    const { value } = e.target.elements.searchMovie;
+  const onSearch = value => {
     setSearchParams(value === '' ? {} : { query: value });
   };
 
@@ -46,12 +43,7 @@ const SearchMovie = () => {
   return (
     <Section>
       <Container>
-        <SearchForm autoComplete="off" onSubmit={onSubmit}>
-          <SearchField type="text" name="searchMovie" />
-          <SubmitButton type="submit">
-            <IoIosSearch size={16} />
-          </SubmitButton>
-        </SearchForm>
+        <SearchForm onSubmit={onSearch} />
 
         {query && (
           <LoadingWrapper isLoading={isLoading} error={error}>
